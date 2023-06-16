@@ -1,5 +1,5 @@
 //your code here
-const sortedBands = bands.sort((a,b) =>{
+const sortedBands = band.sort((a,b) =>{
 	if(a>b){
 		return 1;
 	}
