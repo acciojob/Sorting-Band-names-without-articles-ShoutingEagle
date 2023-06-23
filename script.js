@@ -1,48 +1,33 @@
-// Function to remove articles from band names
-function removeArticles(name) {
-  // List of articles to remove
-  const articles = ["the", "a", "an"];
-  
-  // Convert the band name to lowercase
-  const lowercaseName = name.toLowerCase();
-  
-  // Check if the band name starts with any of the articles
-  for (let article of articles) {
-    if (lowercaseName.startsWith(article + " ")) {
-      // If it does, remove the article and return the modified name
-      return name.slice(article.length + 1);
-    }
-  }
-  
-  // If no articles found, return the original name
-  return name;
+
+const bands = [
+    "The Plot in You",
+    "The Devil Wears Prada",
+    "Pierce the Veil",
+    "Norma Jean",
+    "The Bled",
+    "Say Anything",
+    "The Midway State",
+    "We Came as Romans",
+    "Counterparts",
+    "Oh, Sleeper",
+    "A Skylit Drive",
+    "Anywhere But Here",
+    "An Old Dog"
+];
+
+/**
+ * 我們希望排序的時候能略過一些關鍵字
+ **/
+function strip (word) {
+    let regex = new RegExp('^(a |the |an )', 'i')
+    return word.replace(regex, '').trim()
 }
 
-// Array of band names
-let touristSpots = ['The Virupaksha Temple', 'Victoria Memorial', 'Tajmahal'];
+const sortedBands = bands.sort((a, b) => (strip(a) > strip(b)) ? 1 : -1)
 
-// Sorting function
-function sortBandNames(names) {
-  return names.sort((a, b) => {
-    // Remove articles from the band names for comparison
-    const nameA = removeArticles(a);
-    const nameB = removeArticles(b);
-    
-    // Compare the modified band names
-    if (nameA < nameB) {
-      return -1;
-    }
-    
-    if (nameA > nameB) {
-      return 1;
-    }
-    
-    return 0;
-  });
-}
 
-// Sort the band names without considering articles
-const sortedBandNames = sortBandNames(bandNames);
-
-// Output the sorted band names
-console.log(sortedBandNames);
+/** 
+ * add ul list in HTML
+ **/
+document.querySelector('#bands').innerHTML = 
+    sortedBands.map(item => `<li>${item}</li>`).join('')
